@@ -1,6 +1,7 @@
 package hwOopThree;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Group {
 
@@ -38,7 +39,7 @@ public class Group {
 		return "Group [groupName=" + groupName + ", studens=" + Arrays.toString(studens) + "]";
 	}
 	
-	public void addStudent(Student student) throws GroupOverflowException {
+	public void addStudent(Student student ) throws GroupOverflowException {
 		for (int i = 0; i < studens.length; i++) {
 			if( studens[i] == null  ) {
 				studens[i] = student;
@@ -48,10 +49,12 @@ public class Group {
 		throw new GroupOverflowException();
 	}
 	
+
+	
 	public Student searchStudentByLastName(String lastName) throws StudentNotFoundException {
 		for (int i = 0; i < studens.length; i++) {
 			if( studens[i] != null ) {
-				if( studens[i].getLastName() == lastName ) {
+				if( studens[i].getLastName().equals(lastName) ) {
 					return studens[i];
 				}
 			}
@@ -71,5 +74,11 @@ public class Group {
 		}
 		return false;	
 	}
+	
+	public void sortStudentsByLastName() {
+		Arrays.sort( this.studens, Comparator.nullsLast(new StudentsLastNameComparator() ) );
+	}
+
+	
 	
 }

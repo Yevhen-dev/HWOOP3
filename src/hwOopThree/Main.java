@@ -1,5 +1,7 @@
 package hwOopThree;
 
+import java.util.Scanner;
+
 public class Main {
 
 
@@ -24,10 +26,14 @@ public class Main {
 		Student cortnie = new Student("Cortnie", "Lilo", Gender.W, 21, "UPP");
 		Student lilia = new Student("Lilia", "Vac", Gender.W, 792, "UPP");
 		Student vadim = new Student("Vadim", "Dert", Gender.M, 52, "ATC");
-		Student simon = new Student("simon", "Yello", Gender.M, 92, "UPP");
+		Student simon = new Student("Simon", "Yello", Gender.M, 92, "UPP");
 		
 		Group atc = new Group();
 		atc.setGroupName("ATC");
+		
+		Group upp = new Group();
+		upp.setGroupName("UPP");
+		
 		try {
 			atc.addStudent(ivan);
 			atc.addStudent(mark);
@@ -62,6 +68,31 @@ public class Main {
 		System.out.println();
 		
 		System.out.println(ivan);
+		
+		System.out.println();
+		
+		atc.sortStudentsByLastName();
+		System.out.println( atc );
+		
+		System.out.println();
+		
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println( "Type gender of studen: M or W" ); 
+		if( sc.next().toUpperCase().equals("M") ) {			StudentByKeyboard studentKeyM = new StudentByKeyboard(Gender.M);
+			studentKeyM.addStudentToGroup(upp);
+		} else if( sc.next().toUpperCase().equals("W") ) {			StudentByKeyboard studentKeyW = new StudentByKeyboard(Gender.W);
+			studentKeyW.addStudentToGroup(upp);
+		} else {
+			System.out.println( "Can not create student with wrong gender" );
+		}
+		
+		System.out.println(upp);
+		
+		System.out.println();
+		
+		System.out.println( new CSVStringConverter().toStringRepresentation(simon) );
+		System.out.println( new CSVStringConverter().fromStringRepresentation("Chloe;MacCansie;W;127;UPP") );
 
 	}
 
