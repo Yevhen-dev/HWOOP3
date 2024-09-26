@@ -1,5 +1,7 @@
 package hwOopThree;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
@@ -77,15 +79,15 @@ public class Main {
 		System.out.println();
 		
 		
-		Scanner sc = new Scanner(System.in);
-		System.out.println( "Type gender of studen: M or W" ); 
-		if( sc.next().toUpperCase().equals("M") ) {			StudentByKeyboard studentKeyM = new StudentByKeyboard(Gender.M);
-			studentKeyM.addStudentToGroup(upp);
-		} else if( sc.next().toUpperCase().equals("W") ) {			StudentByKeyboard studentKeyW = new StudentByKeyboard(Gender.W);
-			studentKeyW.addStudentToGroup(upp);
-		} else {
-			System.out.println( "Can not create student with wrong gender" );
-		}
+//		Scanner sc = new Scanner(System.in);
+//		System.out.println( "Type gender of studen: M or W" ); 
+//		if( sc.next().toUpperCase().equals("M") ) {//			StudentByKeyboard studentKeyM = new StudentByKeyboard(Gender.M);
+//			studentKeyM.addStudentToGroup(upp);
+//		} else if( sc.next().toUpperCase().equals("W") ) {//			StudentByKeyboard studentKeyW = new StudentByKeyboard(Gender.W);
+//			studentKeyW.addStudentToGroup(upp);
+//		} else {
+//			System.out.println( "Can not create student with wrong gender" );
+//		}
 		
 		System.out.println(upp);
 		
@@ -93,7 +95,35 @@ public class Main {
 		
 		System.out.println( new CSVStringConverter().toStringRepresentation(simon) );
 		System.out.println( new CSVStringConverter().fromStringRepresentation("Chloe;MacCansie;W;127;UPP") );
+		
+		try {
+			upp.addStudent(domin);
+		} catch (GroupOverflowException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+		
+		
+//Task 5
+		new GroupFileStorage().saveGroupToCSV(atc);
+		
+		File file = new File( "groupATC.csv" );
+		
+		System.out.println( new GroupFileStorage().loadGroupFromCSV(file) );
+		
+		
+		try {
+			File group = new GroupFileStorage().findFileByGroupName("atc", new File("./") );
+			System.out.println( group.getName() );
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
+	
+	
 
 }
