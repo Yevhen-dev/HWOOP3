@@ -49,7 +49,7 @@ public class Main {
 			atc.addStudent(yura);
 //			atc.addStudent(ryan);
 //			atc.addStudent(vadim);
-		} catch (GroupOverflowException e) {
+		} catch (GroupOverflowException | StudentExistException e) {
 			e.printStackTrace();
 		}
 		System.out.println(atc);
@@ -98,7 +98,7 @@ public class Main {
 		
 		try {
 			upp.addStudent(domin);
-		} catch (GroupOverflowException e) {
+		} catch (GroupOverflowException | StudentExistException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -117,6 +117,20 @@ public class Main {
 			File group = new GroupFileStorage().findFileByGroupName("atc", new File("./") );
 			System.out.println( group.getName() );
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+//Task 8
+		
+		Student petr = new Student("Petr", "Cot", Gender.M, 2365, "ATC");
+		Student ivan2 = new Student("Ivan", "Dub", Gender.M, 2, "ATC");
+		
+		try {
+			atc.addStudent(petr);
+			atc.addStudent(ivan2);
+		} catch (GroupOverflowException | StudentExistException e ) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

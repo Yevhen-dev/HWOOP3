@@ -1,11 +1,13 @@
 package hwOopThree;
 
+import java.util.Objects;
+
 public class Human {
-	
+
 	private String name;
 	private String lastName;
 	private Gender gender;
-	
+
 	public Human(String name, String lastName, Gender gender) {
 		super();
 		this.name = name;
@@ -38,12 +40,25 @@ public class Human {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(gender, lastName, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Human other = (Human) obj;
+		return gender == other.gender && Objects.equals(lastName, other.lastName) && Objects.equals(name, other.name);
+	}
+
+	@Override
 	public String toString() {
 		return "\nHuman [name=" + name + ", lastName=" + lastName + ", gender=" + gender + " ]";
 	}
 
-	
-	
-	
-	
 }

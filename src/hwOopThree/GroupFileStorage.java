@@ -52,7 +52,7 @@ public class GroupFileStorage {
 					Student student = new Student(name, lastName, Gender.M, Integer.parseInt(id), gName);
 					try {
 						group.addStudent(student);
-					} catch (GroupOverflowException e) {
+					} catch (GroupOverflowException | StudentExistException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -60,7 +60,7 @@ public class GroupFileStorage {
 					Student student = new Student(name, lastName, Gender.W, Integer.parseInt(id), gName);
 					try {
 						group.addStudent(student);
-					} catch (GroupOverflowException e) {
+					} catch (GroupOverflowException | StudentExistException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}

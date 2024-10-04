@@ -73,7 +73,7 @@ public class StudentByKeyboard {
 		Student student  = new Student(this.name, this.lastName, this.gender, this.id, this.groupName);
 		try {
 			group.addStudent( student );
-		} catch (GroupOverflowException e) {
+		} catch (GroupOverflowException | StudentExistException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
