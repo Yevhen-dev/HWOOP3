@@ -1,15 +1,19 @@
 package hwOopThree;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 
 public class Group {
 
 	private String groupName;
-	private Student[] studens = new Student[10];
+	private ArrayList<Student> studens = new ArrayList<Student>();
 
-	public Group(String groupName, Student[] studens) {
+	public Group(String groupName, ArrayList<Student> studens) {
 		super();
 		this.groupName = groupName;
 		this.studens = studens;
@@ -27,21 +31,22 @@ public class Group {
 		this.groupName = groupName;
 	}
 
-	public Student[] getStudens() {
+	public ArrayList<Student> getStudens() {
 		return studens;
 	}
 
-	public void setStudens(Student[] studens) {
+	public void setStudens(ArrayList<Student> studens) {
 		this.studens = studens;
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Arrays.hashCode(studens);
-		result = prime * result + Objects.hash(groupName);
-		return result;
+		return Objects.hash(groupName, studens);
+	}
+
+	@Override
+	public String toString() {
+		return "Group [groupName=" + groupName + ", studens=" + studens + "]";
 	}
 
 	@Override
@@ -53,75 +58,54 @@ public class Group {
 		if (getClass() != obj.getClass())
 			return false;
 		Group other = (Group) obj;
-		return Objects.equals(groupName, other.groupName) && Arrays.equals(studens, other.studens);
-	}
-
-	@Override
-	public String toString() {
-		return "Group [groupName=" + groupName + ", studens=" + Arrays.toString(studens) + "]";
+		return Objects.equals(groupName, other.groupName) && Objects.equals(studens, other.studens);
 	}
 
 	public void addStudent(Student student) throws GroupOverflowException, StudentExistException {
-		
-		if( !isEqualStudentPresent(student) ) {
-		
-			for (int i = 0; i < studens.length; i++) {
-				if (studens[i] == null) {
-					studens[i] = student;
-					return;
-				}
+
+		if (!isEqualStudentPresent(student)) {
+
+			if (studens.size() < 10) {
+				studens.add(student);
+			} else {
+				throw new GroupOverflowException();
 			}
-			throw new GroupOverflowException();
 
 		} else {
 			throw new StudentExistException();
 		}
-		
+
 	}
 
 	public Student searchStudentByLastName(String lastName) throws StudentNotFoundException {
-		for (int i = 0; i < studens.length; i++) {
-			if (studens[i] != null) {
-				if (studens[i].getLastName().equals(lastName)) {
-					return studens[i];
-				}
+		for (Student student : studens) {
+			if (student.getLastName().equals(lastName)) {
+				return student;
 			}
 		}
+
 		throw new StudentNotFoundException();
 	}
 
 	public boolean removeStudentByID(int id) {
 
-		for (int i = 0; i < studens.length; i++) {
-			if (studens[i] != null) {
-				if (studens[i].getId() == id) {
-					studens[i] = null;
-					return true;
-				}
+		for (Student student : studens) {
+			if (student.getId() == id) {
+				studens.remove(student);
+				return true;
 			}
 		}
 		return false;
 	}
-	
-	public boolean isEqualStudentPresent( Student student ) {
-		
-		Boolean res = false;
-		
-		for( Student st : getStudens() ) {
-			if( st != null ) {
-				if( st.equals(student) ) {
-					res = true;
-					break;
-				}
-			}
-		}
-		
-		return res;	
+
+	public boolean isEqualStudentPresent(Student student) {
+
+		return studens.contains(student);
+
 	}
-	
 
 	public void sortStudentsByLastName() {
-		Arrays.sort(this.studens, Comparator.nullsLast(new StudentsLastNameComparator()));
+		studens.sort(new StudentsLastNameComparator());
 	}
 
 }

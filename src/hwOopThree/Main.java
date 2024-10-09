@@ -6,9 +6,8 @@ import java.util.Scanner;
 
 public class Main {
 
-
 	public static void main(String[] args) {
-		
+
 		Student ivan = new Student("Ivan", "Dub", Gender.M, 2, "ATC");
 		Student mark = new Student("Mark", "Lub", Gender.M, 3, "ATC");
 		Student ira = new Student("Ira", "Koi", Gender.W, 6, "ATC");
@@ -21,21 +20,20 @@ public class Main {
 		Student luci = new Student("Luci", "Turner", Gender.W, 257, "ATC");
 		Student nata = new Student("Nata", "Tui", Gender.W, 35, "ATC");
 		Student yura = new Student("Yura", "Nam", Gender.M, 78, "ATC");
-		
-		
+
 		Student domin = new Student("Domin", "Pop", Gender.M, 56, "UPP");
 		Student ryan = new Student("Ryan", "Quenn", Gender.M, 41, "ATC");
 		Student cortnie = new Student("Cortnie", "Lilo", Gender.W, 21, "UPP");
 		Student lilia = new Student("Lilia", "Vac", Gender.W, 792, "UPP");
 		Student vadim = new Student("Vadim", "Dert", Gender.M, 52, "ATC");
 		Student simon = new Student("Simon", "Yello", Gender.M, 92, "UPP");
-		
+
 		Group atc = new Group();
 		atc.setGroupName("ATC");
-		
+
 		Group upp = new Group();
 		upp.setGroupName("UPP");
-		
+
 		try {
 			atc.addStudent(ivan);
 			atc.addStudent(mark);
@@ -53,49 +51,50 @@ public class Main {
 			e.printStackTrace();
 		}
 		System.out.println(atc);
-		
+
 		System.out.println(atc.removeStudentByID(12));
-		
+
 		System.out.println(atc);
-		
+
 		System.out.println();
-		
+
 		try {
-			System.out.println( atc.searchStudentByLastName("Mala") );
+			System.out.println(atc.searchStudentByLastName("Mala"));
 		} catch (StudentNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		System.out.println();
-		
+
 		System.out.println(ivan);
-		
+
 		System.out.println();
-		
+
 		atc.sortStudentsByLastName();
-		System.out.println( atc );
-		
+		System.out.println(atc);
+
 		System.out.println();
-		
-		
+
 //		Scanner sc = new Scanner(System.in);
 //		System.out.println( "Type gender of studen: M or W" ); 
-//		if( sc.next().toUpperCase().equals("M") ) {//			StudentByKeyboard studentKeyM = new StudentByKeyboard(Gender.M);
+//		if( sc.next().toUpperCase().equals("M") ) {
+//			StudentByKeyboard studentKeyM = new StudentByKeyboard(Gender.M);
 //			studentKeyM.addStudentToGroup(upp);
-//		} else if( sc.next().toUpperCase().equals("W") ) {//			StudentByKeyboard studentKeyW = new StudentByKeyboard(Gender.W);
+//		} else if( sc.next().toUpperCase().equals("W") ) {
+//			StudentByKeyboard studentKeyW = new StudentByKeyboard(Gender.W);
 //			studentKeyW.addStudentToGroup(upp);
 //		} else {
 //			System.out.println( "Can not create student with wrong gender" );
 //		}
-		
+
 		System.out.println(upp);
-		
+
 		System.out.println();
-		
-		System.out.println( new CSVStringConverter().toStringRepresentation(simon) );
-		System.out.println( new CSVStringConverter().fromStringRepresentation("Chloe;MacCansie;W;127;UPP") );
-		
+
+		System.out.println(new CSVStringConverter().toStringRepresentation(simon));
+		System.out.println(new CSVStringConverter().fromStringRepresentation("Chloe;MacCansie;W;127;UPP"));
+
 		try {
 			upp.addStudent(domin);
 		} catch (GroupOverflowException | StudentExistException e) {
@@ -103,41 +102,34 @@ public class Main {
 			e.printStackTrace();
 		}
 
-		
-		
 //Task 5
 		new GroupFileStorage().saveGroupToCSV(atc);
-		
-		File file = new File( "groupATC.csv" );
-		
-		System.out.println( new GroupFileStorage().loadGroupFromCSV(file) );
-		
-		
+
+		File file = new File("groupATC.csv");
+
+		System.out.println(new GroupFileStorage().loadGroupFromCSV(file));
+
 		try {
-			File group = new GroupFileStorage().findFileByGroupName("atc", new File("./") );
-			System.out.println( group.getName() );
+			File group = new GroupFileStorage().findFileByGroupName("atc", new File("./"));
+			System.out.println(group.getName());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 //Task 8
-		
+
 		Student petr = new Student("Petr", "Cot", Gender.M, 2365, "ATC");
 		Student ivan2 = new Student("Ivan", "Dub", Gender.M, 2, "ATC");
-		
+
 		try {
 			atc.addStudent(petr);
-			atc.addStudent(ivan2);
-		} catch (GroupOverflowException | StudentExistException e ) {
+//			atc.addStudent(ivan2);
+		} catch (GroupOverflowException | StudentExistException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
-	
-	
 
 }
